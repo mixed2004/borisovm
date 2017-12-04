@@ -1,5 +1,5 @@
 /**
-* Package for CounterTest task.
+* Package for LoopTest task.
 *
 * @author Maxim Borisov (mailto: mixed2004@mail.ru)
 * @version 1

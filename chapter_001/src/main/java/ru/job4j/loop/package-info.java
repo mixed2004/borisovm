@@ -1,5 +1,5 @@
 /**
-* Package for Counter task.
+* Package for Loop task.
 *
 * @author Maxim Borisov (mailto: mixed2004@mail.ru)
 * @version 1
