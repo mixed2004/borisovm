@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -24,12 +25,18 @@ public class Tracker {
      */
     private static final Random RN = new Random();
     /**
+     * creating a time date object.
+     */
+    private static final  Date DATE = new Date();
+    /**
      * The method realizing the addition of an application to the repository.
      * @param item новая заявка
      * @return item item
      */
     public Item add(Item item) {
+
         item.setId(this.generateId());
+        item.setCreated(this.generatedDate());
         this.items[this.position++] = item;
         return item;
     }
@@ -41,6 +48,13 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt(100));
     }
+    /**
+     * The method generates a Time Date for the application.
+     * @return time.
+     */
+    private long generatedDate() {
+        return DATE.getTime();
+    }
 
     /**
      * method of replacing an application for an index on a given application.
@@ -50,7 +64,9 @@ public class Tracker {
     public void replace(String id, Item item) {
         for (int index = 0; index != this.position; index++) {
             if (items[index] != null && items[index].getId().equals(id)) {
+                item.setId(id);
                 items[index] = item;
+                item.setCreated(this.generatedDate());
                 break;
             }
         }

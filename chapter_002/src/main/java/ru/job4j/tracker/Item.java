@@ -53,6 +53,15 @@ public class Item {
     }
     /**
      *constructor for item.
+     * @param name name
+     * @param desk description of the question.
+     */
+    public Item(String name, String desk) {
+        this.name = name;
+        this.desk = desk;
+    }
+    /**
+     *constructor for item.
      */
     public Item() {
 
