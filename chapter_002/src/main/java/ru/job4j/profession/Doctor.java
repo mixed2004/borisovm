@@ -63,7 +63,7 @@ public class Doctor extends Profession {
          * @param people человек объект
          */
         public void healPeople(People people) {
-            System.out.println("доктор " + this.name + " лечит " + people.getName());
+            System.out.println("доктор " + this.getName() + " лечит " + people.getName());
         }
 
     }

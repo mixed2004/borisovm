@@ -62,7 +62,7 @@ public class Teacher extends Profession {
      * @param student студент объект
      */
     public void teach(Student student) {
-        System.out.println("учитель " + this.name + " учит " + student.getName());
+        System.out.println("учитель " + this.getName() + " учит " + student.getName());
     }
 
     /**

@@ -47,7 +47,7 @@ public class Engineer extends Profession {
      * @param project проект объект
      */
     public void developProject(Project project) {
-        System.out.println("инженер " + this.name + " разрабатывает " + project.getName());
+        System.out.println("инженер " + this.getName() + " разрабатывает " + project.getName());
     }
 
 }
