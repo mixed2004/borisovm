@@ -5,6 +5,10 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * Test StartUITest.
@@ -14,6 +18,58 @@ import static org.junit.Assert.assertThat;
  * @since 21.02.2018
  */
 public class StartUITest {
+    /**
+     *The field contains the default output to the console.
+     */
+    private final PrintStream stdout = System.out;
+    /**
+     *buffer for the result.
+     */
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    /**
+     * The method of replacing standard output with output to memory for testing.
+     */
+    @Before
+    public void loadOutput() {
+        System.out.println("execute before method");
+        System.setOut(new PrintStream(this.out));
+    }
+
+    /**
+     * method of returning output to the console.
+     */
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+        System.out.println("execute after method");
+    }
+    /**
+     * method show menu.
+     * @return String menu in string/
+     */
+    private String showMenu() {
+        return new StringBuilder()
+                .append("MENU.")
+                .append(System.lineSeparator())
+                .append("0. Add new item.")
+                .append(System.lineSeparator())
+                .append("1. Show all items ")
+                .append(System.lineSeparator())
+                .append("2. Edit item.")
+                .append(System.lineSeparator())
+                .append("3. Delete item.")
+                .append(System.lineSeparator())
+                .append("4. Find item by Id.")
+                .append(System.lineSeparator())
+                .append("5. Find items by name.")
+                .append(System.lineSeparator())
+                .append("6. Exit Program.")
+                .append(System.lineSeparator())
+                .append("SELECT: ")
+                .append(System.lineSeparator())
+                .toString();
+        }
     /**
      * Test add.
      */
@@ -45,5 +101,91 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertNull(tracker.findById(item.getId()));
+    }
+    /**
+     * Test showAll.
+     */
+    @Test
+    public void whenShowAllThenTrackerShowAllValues() {
+        Tracker tracker = new Tracker();
+        Item item1 = tracker.add(new Item("test1", "testDescription1", 123L));
+        Input input = new StubInput(new String[]{"1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append(this.showMenu())
+                                .append("------------ ALL ORDERS --------------")
+                                .append(System.lineSeparator())
+                                .append("0: ")
+                                .append("id order : ")
+                                .append(item1.getId())
+                                .append(" name order : test1 ")
+                                .append("description order: testDescription1 ")
+                                .append("created order: ")
+                                .append(item1.getCreated())
+                                .append(System.lineSeparator())
+                                .append(this.showMenu())
+                                .toString()
+                )
+        );
+    }
+    /**
+     * Test findByNameItem.
+     */
+    @Test
+    public void whenFndByNameItemThenTrackerShowNameValue() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("test1", "testDescription1", 123L));
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append(this.showMenu())
+                                .append("------------ FIND BY NAME ORDER --------------")
+                                .append(System.lineSeparator())
+                                .append("0: ")
+                                .append("id order : ")
+                                .append(item.getId())
+                                .append(" name order : test1 ")
+                                .append("description order: testDescription1 ")
+                                .append("created order: ")
+                                .append(item.getCreated())
+                                .append(System.lineSeparator())
+                                .append(this.showMenu())
+                                .toString()
+                )
+        );
+    }
+    /**
+     * Test findById.
+     */
+    @Test
+    public void whenFndByIDItemThenTrackerShowIDValue() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("test1", "testDescription1", 123L));
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append(this.showMenu())
+                                .append("------------ FIND BY ID ORDER --------------")
+                                .append(System.lineSeparator())
+                                .append("id order : ")
+                                .append(item.getId())
+                                .append(" name order : test1 ")
+                                .append("description order: testDescription1 ")
+                                .append("created order: ")
+                                .append(item.getCreated())
+                                .append(System.lineSeparator())
+                                .append(this.showMenu())
+                                .toString()
+                )
+        );
     }
 }

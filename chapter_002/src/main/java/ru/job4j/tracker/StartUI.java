@@ -31,7 +31,6 @@ public class StartUI {
      * The constant of the menu to search for an application by name.
      */
     private static final String FINDBYNAME = "5";
-
     /**
      * The menu constant to exit the loop.
      */
@@ -40,7 +39,6 @@ public class StartUI {
      * Getting data from the user.
      */
     private final Input input;
-
     /**
      * The order store.
      */
