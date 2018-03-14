@@ -58,7 +58,16 @@ public class StartUI {
      * The main loop.
      */
     public void init() {
-        boolean exit = false;
+        Tracker tracker = new Tracker();
+        MenuTracker menu = new MenuTracker(this.input, tracker);
+        menu.fillActions();
+        int key;
+        do {
+            menu.showMenu();
+            key = Integer.valueOf(input.ask("Select: "));
+            menu.select(key);
+        } while (!Integer.valueOf("6").equals(key));
+ /*       boolean exit = false;
         while (!exit) {
             this.showMenu();
             String answer = this.input.ask("Enter the menu item : ");
@@ -80,6 +89,7 @@ public class StartUI {
                 continue;
             }
         }
+        */
     }
 
     /**
