@@ -43,6 +43,10 @@ public class StartUI {
      * The order store.
      */
     private final Tracker tracker;
+    /**
+     * rage of keys.
+     */
+    private int[] range;
 
     /**
      * The constructor initializing the field.
@@ -61,10 +65,12 @@ public class StartUI {
         Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions();
+        range = menu.getActions();
+        int[] range =  menu.getActions();
         int key;
         do {
             menu.showMenu();
-            key = Integer.valueOf(input.ask("Select: "));
+            key = Integer.valueOf(input.ask("Select: ", range));
             menu.select(key);
         } while (!Integer.valueOf("6").equals(key));
  /*       boolean exit = false;
@@ -174,6 +180,6 @@ public class StartUI {
      * @param args args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

@@ -30,6 +30,17 @@ public class MenuTracker {
     }
 
     /**
+     * method of getting possible user actions keys.
+     * @return numberActions array.
+     */
+    public int[] getActions() {
+        int[] numberActions = new int[actions.length];
+        for (int index = 0; index < actions.length; index++) {
+            numberActions[index] = actions[index].key();
+        }
+        return numberActions;
+    }
+    /**
      * method of filling possible user actions.
      */
     public void fillActions() {
@@ -202,7 +213,7 @@ class Exit implements UserAction {
 
     @Override
     public void execute(Input input, Tracker tracker) {
-            System.out.println("EXIT");
+        System.out.println("EXIT");
     }
     @Override
     public String info() {

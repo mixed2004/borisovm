@@ -35,4 +35,14 @@ public class StubInput implements Input {
     public String ask(String question) {
         return this.value[this.position++];
     }
+
+    /**
+     * Exception for the test.
+     * @param question question
+     * @param range menu
+     * @return UnsupportedOperationException
+     */
+    public int ask(String question, int[] range) {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
 }
