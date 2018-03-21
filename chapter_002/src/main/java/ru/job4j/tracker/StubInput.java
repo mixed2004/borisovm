@@ -43,6 +43,7 @@ public class StubInput implements Input {
      * @return UnsupportedOperationException
      */
     public int ask(String question, int[] range) {
-        throw new UnsupportedOperationException("unsupported operation");
+        return Integer.valueOf(this.ask(question));
+
     }
 }
