@@ -44,13 +44,13 @@ public class MenuTracker {
      * method of filling possible user actions.
      */
     public void fillActions() {
-        this.actions[0] = new CreateItem();
-        this.actions[1] = new ShowAllItem();
-        this.actions[2] = new EditItem();
-        this.actions[3] = new DeleteItem();
-        this.actions[4] = new FindByIdItem();
-        this.actions[5] = new FindByNameItem();
-        this.actions[6] = new Exit();
+        this.actions[0] = new CreateItem(0, "Create Item");
+        this.actions[1] = new ShowAllItem(1, "Show All Item");
+        this.actions[2] = new EditItem(2, "Edit item");
+        this.actions[3] = new DeleteItem(3, "Delete item");
+        this.actions[4] = new FindByIdItem(4, "Find by id item");
+        this.actions[5] = new FindByNameItem(5, "Find by name item");
+        this.actions[6] = new Exit(6, "EXIT");
     }
 
     /**
@@ -75,10 +75,14 @@ public class MenuTracker {
     /**
      * class CreateItem.
      */
-    private class CreateItem implements UserAction {
-        @Override
-        public int key() {
-            return  0;
+   private class CreateItem extends BaseAction {
+        /**
+         *constructor.
+         * @param key key
+         * @param name name
+         */
+        private CreateItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -88,20 +92,19 @@ public class MenuTracker {
             tracker.add(new Item(name, desc));
         }
 
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Create new item");
-        }
     }
     /**
-     * class CreateItem.
+     * class ShowAllItem.
      */
-    private static class ShowAllItem implements UserAction {
-        @Override
-        public int key() {
-            return  1;
+    private static class ShowAllItem extends BaseAction {
+        /**
+         *constructor.
+         * @param key key
+         * @param name name
+         */
+        private ShowAllItem(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             int index = 1;
@@ -110,20 +113,19 @@ public class MenuTracker {
                 //               System.out.println(index + ": " + "id order : " + arrayItems[index].getId() + " " + "name order : "  + arrayItems[index].getName() + " " + "description order: " + arrayItems[index].getDesk() + " " + "created order: " + arrayItems[index].getCreated());
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "All items");
-        }
     }
 }
 /**
  * class EditItem.
  */
-class EditItem implements UserAction {
-    @Override
-    public int key() {
-        return  2;
+class EditItem extends BaseAction {
+    /**
+     *constructor.
+     * @param key key
+     * @param name name
+     */
+    protected EditItem(int key, String name) {
+        super(key, name);
     }
 
     @Override
@@ -133,63 +135,58 @@ class EditItem implements UserAction {
         String desc = input.ask("input description order :");
         tracker.replace(id, new Item(name, desc));
     }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "Edit item");
-    }
 }
 
 
 /**
  * class DeleteItem.
  */
-class DeleteItem implements UserAction {
-    @Override
-    public int key() {
-        return  3;
+class DeleteItem extends BaseAction {
+    /**
+     *constructor.
+     * @param key key
+     * @param name name
+     */
+    protected DeleteItem(int key, String name) {
+        super(key, name);
     }
-
     @Override
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("input id:");
         tracker.delete(id);
     }
-
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "delete item");
-    }
 }
 /**
  * class FindByIdItem.
  */
-class FindByIdItem implements UserAction {
-    @Override
-    public int key() {
-        return  4;
+class FindByIdItem extends BaseAction {
+    /**
+     *constructor.
+     * @param key key
+     * @param name name
+     */
+    protected FindByIdItem(int key, String name) {
+        super(key, name);
     }
-
     @Override
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("input id:");
         Item item = tracker.findById(id);
         System.out.println(String.format("id order : %s name order : %s description order: %s created order: %s", item.getId(), item.getName(), item.getDesk(), item.getCreated()));
     }
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "find by id item");
-    }
 }
 /**
  * class FindByIdName.
  */
-class FindByNameItem implements UserAction {
-    @Override
-    public int key() {
-        return  5;
+class FindByNameItem extends BaseAction {
+    /**
+     *constructor.
+     * @param key key
+     * @param name name
+     */
+    protected FindByNameItem(int key, String name) {
+        super(key, name);
     }
-
     @Override
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("input name:");
@@ -197,26 +194,21 @@ class FindByNameItem implements UserAction {
             System.out.println(String.format("id order : %s name order : %s description order: %s created order: %s", item.getId(), item.getName(), item.getDesk(), item.getCreated()));
         }
     }
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "find by name item");
-    }
 }
 /**
  * class Exit.
  */
-class Exit implements UserAction {
-    @Override
-    public int key() {
-        return  6;
+class Exit extends BaseAction {
+    /**
+     *constructor.
+     * @param key key
+     * @param name name
+     */
+    protected Exit(int key, String name) {
+        super(key, name);
     }
-
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("EXIT");
-    }
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "EXIT");
     }
 }
