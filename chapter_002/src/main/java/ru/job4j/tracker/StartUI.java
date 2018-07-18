@@ -42,7 +42,7 @@ public class StartUI {
     /**
      * The order store.
      */
-    private final Tracker tracker;
+    private Tracker tracker = new Tracker();
     /**
      * rage of keys.
      */
@@ -62,7 +62,7 @@ public class StartUI {
      * The main loop.
      */
     public void init() {
-        Tracker tracker = new Tracker();
+//        Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions();
         range = menu.getActions();
@@ -73,30 +73,7 @@ public class StartUI {
             key = Integer.valueOf(input.ask("Select: ", range));
             menu.select(key);
         } while (!Integer.valueOf("6").equals(key));
- /*       boolean exit = false;
-        while (!exit) {
-            this.showMenu();
-            String answer = this.input.ask("Enter the menu item : ");
-            if (ADD.equals(answer)) {
-                this.createItem();
-            } else if (SHOW.equals(answer)) {
-                this.showAllItem();
-            } else if (EDIT.equals(answer)) {
-                this.editItem();
-            } else if (DELETE.equals(answer)) {
-                this.deleteItem();
-            } else if (FINDBYID.equals(answer)) {
-                this.findByIdItem();
-            } else if (FINDBYNAME.equals(answer)) {
-                this.findByNameItem();
-            } else if (EXIT.equals(answer)) {
-                exit = true;
-            } else {
-                continue;
-            }
-        }
-        */
-    }
+     }
 
     /**
      * The method realizing the addition of an application to the repository.

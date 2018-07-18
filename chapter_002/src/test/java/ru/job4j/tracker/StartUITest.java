@@ -50,26 +50,22 @@ public class StartUITest {
      */
     private String showMenu() {
         return new StringBuilder()
-                .append("MENU.")
+                .append("0. Create Item")
                 .append(System.lineSeparator())
-                .append("0. Add new item.")
+                .append("1. Show All Item")
                 .append(System.lineSeparator())
-                .append("1. Show all items ")
+                .append("2. Edit item")
                 .append(System.lineSeparator())
-                .append("2. Edit item.")
+                .append("3. Delete item")
                 .append(System.lineSeparator())
-                .append("3. Delete item.")
+                .append("4. Find by id item")
                 .append(System.lineSeparator())
-                .append("4. Find item by Id.")
+                .append("5. Find by name item")
                 .append(System.lineSeparator())
-                .append("5. Find items by name.")
-                .append(System.lineSeparator())
-                .append("6. Exit Program.")
-                .append(System.lineSeparator())
-                .append("SELECT: ")
+                .append("6. EXIT")
                 .append(System.lineSeparator())
                 .toString();
-        }
+    }
     /**
      * Test add.
      */
@@ -116,9 +112,7 @@ public class StartUITest {
                 is(
                         new StringBuilder()
                                 .append(this.showMenu())
-                                .append("------------ ALL ORDERS --------------")
-                                .append(System.lineSeparator())
-                                .append("0: ")
+                                .append("1 ")
                                 .append("id order : ")
                                 .append(item1.getId())
                                 .append(" name order : test1 ")
@@ -127,6 +121,8 @@ public class StartUITest {
                                 .append(item1.getCreated())
                                 .append(System.lineSeparator())
                                 .append(this.showMenu())
+                                .append("EXIT")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
@@ -145,9 +141,6 @@ public class StartUITest {
                 is(
                         new StringBuilder()
                                 .append(this.showMenu())
-                                .append("------------ FIND BY NAME ORDER --------------")
-                                .append(System.lineSeparator())
-                                .append("0: ")
                                 .append("id order : ")
                                 .append(item.getId())
                                 .append(" name order : test1 ")
@@ -156,6 +149,8 @@ public class StartUITest {
                                 .append(item.getCreated())
                                 .append(System.lineSeparator())
                                 .append(this.showMenu())
+                                .append("EXIT")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
@@ -174,8 +169,6 @@ public class StartUITest {
                 is(
                         new StringBuilder()
                                 .append(this.showMenu())
-                                .append("------------ FIND BY ID ORDER --------------")
-                                .append(System.lineSeparator())
                                 .append("id order : ")
                                 .append(item.getId())
                                 .append(" name order : test1 ")
@@ -184,6 +177,8 @@ public class StartUITest {
                                 .append(item.getCreated())
                                 .append(System.lineSeparator())
                                 .append(this.showMenu())
+                                .append("EXIT")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
