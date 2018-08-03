@@ -1,7 +1,8 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,7 +16,7 @@ public class Tracker {
     /**
      * creating array of 100 objects Item.
      */
-    private Item[] items = new Item[100];
+    private List<Item> items = new ArrayList<>();
     /**
      * The cell pointer for the new application.
      */
@@ -37,7 +38,7 @@ public class Tracker {
 
         item.setId(this.generateId());
         item.setCreated(this.generatedDate());
-        this.items[this.position++] = item;
+        this.items.add(item);
         return item;
     }
     /**
@@ -58,15 +59,14 @@ public class Tracker {
 
     /**
      * method of replacing an application for an index on a given application.
-      * @param id findin id.
+     * @param id findin id.
      * @param item resalt item in array of items whith find id.
      */
     public void replace(String id, Item item) {
-        for (int index = 0; index != this.position; index++) {
-            if (items[index] != null && items[index].getId().equals(id)) {
+        for (int i = 0; i <  this.items.size(); i++) {
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
                 item.setId(id);
-                items[index] = item;
-                item.setCreated(this.generatedDate());
+                this.items.set(i, item);
                 break;
             }
         }
@@ -77,14 +77,9 @@ public class Tracker {
      * @param id finding id.
      */
     public void delete(String id) {
-        for (int index = 0; index != this.position; index++) {
-            if (items[index] != null && items[index].getId().equals(id)) {
-                items[index] = null;
-                if (index < items.length - 1) {
-                    System.arraycopy(items, index + 1, items, index, this.position - index);
-                }
-                items[position - 1] = null;
-                this.position--;
+        for (int i = 0; i <  this.items.size(); i++) {
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
+                this.items.remove(i);
                 break;
             }
         }
@@ -93,32 +88,28 @@ public class Tracker {
      * method of searching for all non-zero values.
      * @return array.
      */
-    public Item[] findAll() {
-        Item[] result = new Item[this.position];
-        int numberNotNullElements = 0;
-        for (int index = 0; index != this.position; index++) {
-            if (items[index] != null) {
-                result[index] = this.items[index];
-                numberNotNullElements++;
+    public List<Item> findAll() {
+        List<Item> result = new ArrayList<>();
+        for (Item item: items) {
+            if (item != null) {
+                result.add(item);
             }
         }
-        return Arrays.copyOf(result, numberNotNullElements);
+        return result;
     }
     /**
      * method of finding all values with a given name.
      * @param key findingName
      * @return array.
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[this.position];
-        int numberOfElements = 0;
-        for (int index = 0; index != this.position; index++) {
-            if (items[index].getName().equals(key)) {
-                result[index] = this.items[index];
-                numberOfElements++;
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        for (Item item: items) {
+            if (item.getName().equals(key)) {
+                result.add(item);
             }
         }
-        return Arrays.copyOf(result, numberOfElements);
+        return result;
     }
 
     /**
@@ -136,5 +127,4 @@ public class Tracker {
         }
         return resalt;
     }
-
 }

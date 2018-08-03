@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.List;
+
 /**
  * class StartUI.
  *
@@ -91,9 +94,9 @@ public class StartUI {
      */
     private void showAllItem() {
         System.out.println("------------ ALL ORDERS --------------");
-        Item[] arrayItems = this.tracker.findAll();
-        for (int index = 0; index < arrayItems.length; index++) {
-            System.out.println(index + ": " + "id order : " + arrayItems[index].getId() + " " + "name order : "  + arrayItems[index].getName() + " " + "description order: " + arrayItems[index].getDesk() + " " + "created order: " + arrayItems[index].getCreated());
+        List<Item> arrayItems = this.tracker.findAll();
+        for (Item item: arrayItems) {
+            System.out.println(" id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
         }
     }
     /**
@@ -132,9 +135,9 @@ public class StartUI {
     private void findByNameItem() {
         System.out.println("------------ FIND BY NAME ORDER --------------");
         String name = this.input.ask("input name  order :");
-        Item[] arrayItems = this.tracker.findByName(name);
-        for (int index = 0; index < arrayItems.length; index++) {
-            System.out.println(index + ": " + "id order : " + arrayItems[index].getId() + " " + "name order : "  + arrayItems[index].getName() + " " + "description order: " + arrayItems[index].getDesk() + " " + "created order: " + arrayItems[index].getCreated());
+        List<Item> arrayItems = this.tracker.findByName(name);
+        for (Item item: arrayItems) {
+            System.out.println("id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
         }
     }
     /**

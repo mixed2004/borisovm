@@ -2,6 +2,9 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -19,9 +22,11 @@ public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
+        List<Item> resultArray = new ArrayList<>();
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        resultArray.add(item);
+        assertThat(tracker.findAll(), is(resultArray));
     }
     /**
      * Test findAll.
@@ -29,7 +34,7 @@ public class TrackerTest {
     @Test
     public void whenFindAllThenTrackerFindAllItem() {
         Tracker tracker = new Tracker();
-        Item[] resultArray = new Item[2];
+        List<Item> resultArray = new ArrayList<>();
         Item item1 = new Item("test1", "testDescription1", 123L);
         Item item2 = new Item();
         Item item3 = new Item("test3", "testDescription2", 123L);
@@ -37,8 +42,8 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.delete(item2.getId());
         tracker.add(item3);
-        resultArray[0] = item1;
-        resultArray[1] = item3;
+        resultArray.add(item1);
+        resultArray.add(item3);
         assertThat(tracker.findAll(), is(resultArray));
     }
     /**
@@ -47,15 +52,15 @@ public class TrackerTest {
     @Test
     public void whenFindBynameThenTrackerFindAllFindNameItem() {
         Tracker tracker = new Tracker();
-        Item[] resultArray = new Item[2];
+        List<Item> resultArray = new ArrayList<>();
         Item item1 = new Item("test1", "testDescription1", 123L);
         Item item2 = new Item("test1", "testDescription2", 123L);
         Item item3 = new Item("test3", "testDescription3", 123L);
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        resultArray[0] = item1;
-        resultArray[1] = item2;
+        resultArray.add(item1);
+        resultArray.add(item2);
         assertThat(tracker.findByName("test1"), is(resultArray));
     }
     /**
@@ -63,7 +68,9 @@ public class TrackerTest {
      */
     @Test
     public void whenReplaceByIdThenTrackerFindIdAndReplaseItem() {
+        Item item = new Item();
         Tracker tracker = new Tracker();
+        List<Item> resultArray = new ArrayList<>();
         Item item1 = new Item("test1", "testDescription1", 123L);
         Item item2 = new Item("test2", "testDescription2", 123L);
         Item item3 = new Item("test3", "testDescription3", 123L);
@@ -72,7 +79,10 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.add(item3);
         tracker.replace(item2.getId(), item4);
-        assertThat(tracker.findAll()[1], is(item4));
+        resultArray.add(item1);
+        resultArray.add(item4);
+        resultArray.add(item3);
+        assertThat(tracker.findAll(), is(resultArray));
     }
     /**
      * Test delete.
@@ -80,7 +90,7 @@ public class TrackerTest {
     @Test
     public void deleteByIdThenTrackerFindIdAndDeleteItem() {
         Tracker tracker = new Tracker();
-        Item[] resultArray = new Item[2];
+        ArrayList<Item> resultArray = new ArrayList<>();
         Item item1 = new Item("test1", "testDescription1", 123L);
         Item item2 = new Item("test2", "testDescription2", 123L);
         Item item3 = new Item("test3", "testDescription3", 123L);
@@ -88,8 +98,8 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.add(item3);
         tracker.delete(item2.getId());
-        resultArray[0] = item1;
-        resultArray[1] = item3;
+        resultArray.add(item1);
+        resultArray.add(item3);
         assertThat(tracker.findAll(), is(resultArray));
     }
 }
