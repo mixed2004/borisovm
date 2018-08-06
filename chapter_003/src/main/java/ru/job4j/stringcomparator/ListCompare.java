@@ -19,7 +19,9 @@ public class ListCompare implements Comparator<String> {
     public int compare(String left, String right) {
         boolean needCompareChar = false;
         int badIndex = 0;
-        int lessStringLehgth = left.length() < right.length() ? left.length() : right.length();
+        int leftStrLength = left.length();
+        int rightStrLength = right.length();
+        int lessStringLehgth = leftStrLength < rightStrLength ? leftStrLength : rightStrLength;
         for (int i = 0; i < lessStringLehgth; i++) {
             if (left.charAt(i) != right.charAt(i)) {
                 badIndex = i;
@@ -27,6 +29,6 @@ public class ListCompare implements Comparator<String> {
                 break;
             }
         }
-        return needCompareChar ? Character.compare(left.charAt(badIndex), right.charAt(badIndex)) : Integer.compare(left.length(), right.length());
+        return needCompareChar ? Character.compare(left.charAt(badIndex), right.charAt(badIndex)) : leftStrLength - rightStrLength;
     }
 }
