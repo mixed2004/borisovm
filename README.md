@@ -1,4 +1,8 @@
 # borisovm
 http://job4j.ru/
-Цель: научиться программировать, сменить профессию
-Продолжительность: 6 месяцев.
+
+Р¦РµР»СЊ: РЅР°СѓС‡РёС‚СЊСЃСЏ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°С‚СЊ, СЃРјРµРЅРёС‚СЊ РїСЂРѕС„РµСЃСЃРёСЋ
+РџСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ: 6 РјРµСЃСЏС†РµРІ.
+
+[![Build Status](https://travis-ci.com/mixed2004/borisovm.svg?branch=master)](https://travis-ci.com/mixed2004/borisovm)
+[![codecov](https://codecov.io/gh/mixed2004/borisovm/branch/master/graph/badge.svg)](https://codecov.io/gh/mixed2004/borisovm)
