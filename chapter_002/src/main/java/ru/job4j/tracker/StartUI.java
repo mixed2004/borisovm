@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * class StartUI.
@@ -50,23 +51,40 @@ public class StartUI {
      * rage of keys.
      */
     private int[] range;
+    /**
+     *функциональный интерфейс Consumer.
+     */
+    private final Consumer<String> output;
 
     /**
      * The constructor initializing the field.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
      */
+
     public StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
+        output = null;
     }
 
+    /**
+     * The constructor initializing the field.
+     * @param input input
+     * @param tracker tracker
+     * @param output output
+     */
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
+        this.input = input;
+        this.tracker = tracker;
+        this.output = output;
+    }
     /**
      * The main loop.
      */
     public void init() {
 //        Tracker tracker = new Tracker();
-        MenuTracker menu = new MenuTracker(this.input, tracker);
+        MenuTracker menu = new MenuTracker(this.input, tracker, output);
         menu.fillActions();
         range = menu.getActions();
         int[] range =  menu.getActions();
@@ -82,79 +100,81 @@ public class StartUI {
      * The method realizing the addition of an application to the repository.
      */
     private void createItem() {
-        System.out.println("------------ ADD NEW ORDER --------------");
+        output.accept("------------ ADD NEW ORDER --------------");
         String name = this.input.ask("input name order :");
         String desc = this.input.ask("input description order :");
         Item item = new Item(name, desc);
         this.tracker.add(item);
-        System.out.println("------------ NEW ORDER WITH ID : " + item.getId() + "-----------");
+        output.accept("------------ NEW ORDER WITH ID : " + item.getId() + "-----------");
     }
     /**
      * method of searching for all non-zero values.
      */
     private void showAllItem() {
-        System.out.println("------------ ALL ORDERS --------------");
+        output.accept("------------ ALL ORDERS --------------");
         List<Item> arrayItems = this.tracker.findAll();
         for (Item item: arrayItems) {
-            System.out.println(" id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
+            output.accept(" id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
         }
     }
     /**
      * method of replacing an application for an index on a given application.
      */
     private void editItem() {
-        System.out.println("------------ EDIT ORDER --------------");
+        output.accept("------------ EDIT ORDER --------------");
         String id = this.input.ask("input ID order :");
         String name = this.input.ask("input name order :");
         String desc = this.input.ask("input description order :");
         Item item = new Item(name, desc);
         this.tracker.replace(id, item);
-        System.out.println("------------ THE ORDER EDITED WITH ID : " + item.getId() + "-----------");
+        output.accept("------------ THE ORDER EDITED WITH ID : " + item.getId() + "-----------");
     }
     /**
      * method of deleting an application for an index with a shift.
      */
     private void deleteItem() {
-        System.out.println("------------ DELETE ORDER --------------");
+        output.accept("------------ DELETE ORDER --------------");
         String id = this.input.ask("input ID  order :");
         this.tracker.delete(id);
-        System.out.println("------------ DELETED ORDER WITH ID : " + id + "-----------");
+        output.accept("------------ DELETED ORDER WITH ID : " + id + "-----------");
     }
     /**
      * method of finding by id.
      */
     private void findByIdItem() {
-        System.out.println("------------ FIND BY ID ORDER --------------");
+        output.accept("------------ FIND BY ID ORDER --------------");
         String id = this.input.ask("input ID  order :");
         Item item = this.tracker.findById(id);
-        System.out.println("id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
+        output.accept("id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
     }
     /**
      * method of finding all values with a given name.
      */
     private void findByNameItem() {
-        System.out.println("------------ FIND BY NAME ORDER --------------");
+        output.accept("------------ FIND BY NAME ORDER --------------");
         String name = this.input.ask("input name  order :");
         List<Item> arrayItems = this.tracker.findByName(name);
         for (Item item: arrayItems) {
-            System.out.println("id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
+            output.accept("id order : " + item.getId() + " " + "name order : "  + item.getName() + " " + "description order: " + item.getDesk() + " " + "created order: " + item.getCreated());
         }
     }
-    /**
+
+   /**
      * method show menu.
      */
+   /*
     private void showMenu() {
-        System.out.println("MENU.");
-        System.out.println("0. Add new item.");
-        System.out.println("1. Show all items ");
-        System.out.println("2. Edit item.");
-        System.out.println("3. Delete item.");
-        System.out.println("4. Find item by Id.");
-        System.out.println("5. Find items by name.");
-        System.out.println("6. Exit Program.");
-        System.out.println("SELECT: ");
+        output.accept("MENU.");
+        output.accept("0. Add new item.");
+        output.accept("1. Show all items ");
+        output.accept("2. Edit item.");
+        output.accept("3. Delete item.");
+        output.accept("4. Find item by Id.");
+        output.accept("5. Find items by name.");
+        output.accept("6. Exit Program.");
+        output.accept("SELECT: ");
     }
-
+*/
     /**
      * Start the program.
      * @param args args

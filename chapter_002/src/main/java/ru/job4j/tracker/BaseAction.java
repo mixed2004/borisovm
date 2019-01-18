@@ -1,4 +1,5 @@
 package ru.job4j.tracker;
+
 /**
  * abstract class BaseAction.
  *
@@ -41,5 +42,12 @@ public abstract class BaseAction implements UserAction {
     public String info() {
         return String.format("%s. %s", this.key, this.name);
     }
+
+    /**
+     * execute.
+     * @param input initial parameters
+     * @param tracker repository of orders
+     */
+    public abstract void execute(Input input, Tracker tracker);
 }
 

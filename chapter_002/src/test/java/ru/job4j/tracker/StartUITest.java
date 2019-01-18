@@ -7,6 +7,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
+
 import org.junit.After;
 import org.junit.Before;
 
@@ -26,7 +28,15 @@ public class StartUITest {
      *buffer for the result.
      */
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-
+    /**
+     * Consumer.
+     */
+    private final Consumer<String> output = new Consumer<String>() {
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+    };
     /**
      * The method of replacing standard output with output to memory for testing.
      */
@@ -73,7 +83,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
     /**
@@ -84,7 +94,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item());
         Input input = new StubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test name"));
     }
     /**
@@ -95,7 +105,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "testDescription1", 123L));
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertNull(tracker.findById(item.getId()));
     }
     /**
@@ -106,7 +116,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item1 = tracker.add(new Item("test1", "testDescription1", 123L));
         Input input = new StubInput(new String[]{"1", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(
                 new String(out.toByteArray()),
                 is(
@@ -135,7 +145,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "testDescription1", 123L));
         Input input = new StubInput(new String[]{"5", item.getName(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(
                 new String(out.toByteArray()),
                 is(
@@ -163,7 +173,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "testDescription1", 123L));
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, System.out::println).init();
         assertThat(
                 new String(out.toByteArray()),
                 is(

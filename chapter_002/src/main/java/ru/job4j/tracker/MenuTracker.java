@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * class MenuTracker.
  *
@@ -16,6 +19,10 @@ public class MenuTracker {
      */
     private Tracker tracker;
     /**
+     *функциональный интерфейс Consumer.
+     */
+    private final Consumer<String> output;
+    /**
      * The actions of user.
      */
     private UserAction[] actions = new UserAction[7];
@@ -23,12 +30,13 @@ public class MenuTracker {
      * The constructor initializing the field.
      * @param input enter data.
      * @param tracker safe orders.
+     * @param output output
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
-
     /**
      * method of getting possible user actions keys.
      * @return numberActions array.
@@ -59,7 +67,7 @@ public class MenuTracker {
     public void showMenu() {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.info());
+                this.output.accept(action.info());
             }
         }
     }
@@ -75,7 +83,7 @@ public class MenuTracker {
     /**
      * class CreateItem.
      */
-   private class CreateItem extends BaseAction {
+    private class CreateItem extends BaseAction {
         /**
          *constructor.
          * @param key key
@@ -91,12 +99,11 @@ public class MenuTracker {
             String desc = input.ask("input description order :");
             tracker.add(new Item(name, desc));
         }
-
     }
     /**
      * class ShowAllItem.
      */
-    private static class ShowAllItem extends BaseAction {
+    private class ShowAllItem extends BaseAction {
         /**
          *constructor.
          * @param key key
@@ -109,89 +116,89 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             int index = 1;
             for (Item item: tracker.findAll()) {
-                System.out.println(String.format("%s id order : %s name order : %s description order: %s created order: %s", index++, item.getId(), item.getName(), item.getDesk(), item.getCreated()));
-                //               System.out.println(index + ": " + "id order : " + arrayItems[index].getId() + " " + "name order : "  + arrayItems[index].getName() + " " + "description order: " + arrayItems[index].getDesk() + " " + "created order: " + arrayItems[index].getCreated());
+                output.accept(String.format("%s id order : %s name order : %s description order: %s created order: %s", index++, item.getId(), item.getName(), item.getDesk(), item.getCreated()));
             }
         }
     }
-}
-/**
- * class EditItem.
- */
-class EditItem extends BaseAction {
+
     /**
-     *constructor.
-     * @param key key
-     * @param name name
+     * class EditItem.
      */
-    protected EditItem(int key, String name) {
-        super(key, name);
+    class EditItem extends BaseAction {
+        /**
+         *constructor.
+         * @param key key
+         * @param name name
+         */
+        protected EditItem(int key, String name) {
+            super(key, name);
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("input id:");
+            String name = input.ask("input name order :");
+            String desc = input.ask("input description order :");
+            tracker.replace(id, new Item(name, desc));
+        }
     }
 
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("input id:");
-        String name = input.ask("input name order :");
-        String desc = input.ask("input description order :");
-        tracker.replace(id, new Item(name, desc));
+    /**
+     * class DeleteItem.
+     */
+    class DeleteItem extends BaseAction {
+        /**
+         *constructor.
+         * @param key key
+         * @param name name
+         */
+        protected DeleteItem(int key, String name) {
+            super(key, name);
+        }
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("input id:");
+            tracker.delete(id);
+        }
     }
-}
+    /**
+     * class FindByIdItem.
+     */
+    class FindByIdItem extends BaseAction {
+        /**
+         *constructor.
+         * @param key key
+         * @param name name
+         */
+        protected FindByIdItem(int key, String name) {
+            super(key, name);
+        }
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("input id:");
+            Item item = tracker.findById(id);
+            output.accept(String.format("id order : %s name order : %s description order: %s created order: %s", item.getId(), item.getName(), item.getDesk(), item.getCreated()));
+        }
+    }
+    /**
+     * class FindByIdName.
+     */
+    class FindByNameItem extends BaseAction {
 
-
-/**
- * class DeleteItem.
- */
-class DeleteItem extends BaseAction {
-    /**
-     *constructor.
-     * @param key key
-     * @param name name
-     */
-    protected DeleteItem(int key, String name) {
-        super(key, name);
-    }
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("input id:");
-        tracker.delete(id);
-    }
-}
-/**
- * class FindByIdItem.
- */
-class FindByIdItem extends BaseAction {
-    /**
-     *constructor.
-     * @param key key
-     * @param name name
-     */
-    protected FindByIdItem(int key, String name) {
-        super(key, name);
-    }
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        String id = input.ask("input id:");
-        Item item = tracker.findById(id);
-        System.out.println(String.format("id order : %s name order : %s description order: %s created order: %s", item.getId(), item.getName(), item.getDesk(), item.getCreated()));
-    }
-}
-/**
- * class FindByIdName.
- */
-class FindByNameItem extends BaseAction {
-    /**
-     *constructor.
-     * @param key key
-     * @param name name
-     */
-    protected FindByNameItem(int key, String name) {
-        super(key, name);
-    }
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        String name = input.ask("input name:");
-        for (Item item : tracker.findByName(name)) {
-            System.out.println(String.format("id order : %s name order : %s description order: %s created order: %s", item.getId(), item.getName(), item.getDesk(), item.getCreated()));
+        /**
+         *constructor.
+         * @param key key
+         * @param name name
+         */
+        protected FindByNameItem(int key, String name) {
+            super(key, name);
+        }
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String name = input.ask("input name:");
+            for (Item item : tracker.findByName(name)) {
+                output.accept(String.format("id order : %s name order : %s description order: %s created order: %s", item.getId(), item.getName(), item.getDesk(), item.getCreated()));
+            }
         }
     }
 }
