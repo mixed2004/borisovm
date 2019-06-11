@@ -32,8 +32,29 @@ public class ProfilesTest {
         profileList.add(profile1);
         profileList.add(profile2);
         List<Address> expect = new ArrayList<>();
-        expect.add(address1);
         expect.add(address2);
+        expect.add(address1);
+        Profiles profile = new Profiles();
+        assertThat(profile.collect(profileList), is(expect));
+    }
+    /**
+     * test.
+     */
+    @Test
+    public void whenNeedUnicAddressesThenListWhithUnicAddresses() {
+        Address address1 = new Address("Moscow", "stroiteley", 2, 1);
+        Address address2 = new Address("Kazan", "Marcs", 1, 4);
+        Address address3 = new Address("Moscow", "stroiteley", 2, 1);
+        Profile profile1 = new Profile(address1);
+        Profile profile2 = new Profile(address2);
+        Profile profile3 = new Profile(address3);
+        List<Profile> profileList = new ArrayList<>();
+        profileList.add(profile1);
+        profileList.add(profile2);
+        profileList.add(profile3);
+        List<Address> expect = new ArrayList<>();
+        expect.add(address2);
+        expect.add(address1);
         Profiles profile = new Profiles();
         assertThat(profile.collect(profileList), is(expect));
     }
