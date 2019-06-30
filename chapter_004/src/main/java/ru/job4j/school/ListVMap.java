@@ -16,7 +16,6 @@ public class ListVMap {
     public Map<String, Student> listToMap(List<Student> students) {
 return students
         .stream()
-        .distinct()
         .collect(Collectors.toMap(x -> x.getName(), x -> x, (oldValue, newValue) -> oldValue));
     }
 }
