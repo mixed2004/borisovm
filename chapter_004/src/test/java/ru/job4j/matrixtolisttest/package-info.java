@@ -5,4 +5,4 @@
  * @version 1
  * @since 01/07/2019
  */
-package test.java.ru.job4j.matrixtolisttest;
+package ru.job4j.matrixtolisttest;

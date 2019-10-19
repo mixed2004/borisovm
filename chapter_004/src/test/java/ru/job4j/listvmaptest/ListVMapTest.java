@@ -1,4 +1,4 @@
-package test.java.ru.job4j.listvmaptest;
+package ru.job4j.listvmaptest;
 
 import org.junit.Test;
 import ru.job4j.school.ListVMap;

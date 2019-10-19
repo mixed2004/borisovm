@@ -5,4 +5,4 @@
  * @version 1
  * @since 15.04.2019
  */
-package test.java.ru.job4j.addresslisttest;
+package ru.job4j.addresslisttest;

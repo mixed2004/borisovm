@@ -1,4 +1,4 @@
-package test.java.ru.job4j.addresslisttest;
+package ru.job4j.addresslisttest;
 
 import org.junit.Test;
 import ru.job4j.addresslist.Address;

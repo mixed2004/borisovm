@@ -1,4 +1,4 @@
-package ru.job4j.Student;
+package ru.job4j.student;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class Student implements Comparator<Student> {
     private int scope;
 
     /**
-     * compape.
+     * compare.
      * @param o1 object1
      * @param o2 object2
      * @return result
@@ -45,11 +45,15 @@ public class Student implements Comparator<Student> {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Student student = (Student) o;
-        return scope == student.scope &&
-                Objects.equals(name, student.name);
+        return scope == student.scope
+                && Objects.equals(name, student.name);
     }
 
     /**

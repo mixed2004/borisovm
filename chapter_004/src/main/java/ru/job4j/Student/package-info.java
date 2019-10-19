@@ -1,1 +1,1 @@
-package ru.job4j.Student;
+package ru.job4j.student;

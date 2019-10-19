@@ -2,6 +2,7 @@ package ru.job4j.list;
 
 import java.util.List;
 
+
 /**
  * class ConvertList2Array.
  *
@@ -21,10 +22,14 @@ public class ConvertList2Array {
         if (list.size() % cells != 0) {
             cells++;
         }
-        int[][] array = new int[rows][cells];
-        for (Integer listvalue : list) {
-            array[list.indexOf(listvalue) / cells][list.indexOf(listvalue) % cells] = listvalue;
-        }
+        final int rezaltCels = cells;
+       int[][] array = new int[rows][cells];
+   //     for (Integer listvalue : list) {
+   //         array[list.indexOf(listvalue) / cells][list.indexOf(listvalue) % cells] = listvalue;
+     //   }
+   //
+        list.forEach((listvalue) -> array[list.indexOf(listvalue) / rezaltCels][list.indexOf(listvalue) % rezaltCels] = listvalue);
+
         return array;
     }
 }

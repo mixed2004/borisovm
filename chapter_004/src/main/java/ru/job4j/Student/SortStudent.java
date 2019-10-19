@@ -1,4 +1,4 @@
-package ru.job4j.Student;
+package ru.job4j.student;
 
 
 import java.util.Comparator;

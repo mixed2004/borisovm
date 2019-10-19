@@ -1,4 +1,4 @@
-package test.java.ru.job4j.matrixtolisttest;
+package ru.job4j.matrixtolisttest;
 import org.junit.Test;
 import ru.job4j.matrixtolist.MatrixToList;
 

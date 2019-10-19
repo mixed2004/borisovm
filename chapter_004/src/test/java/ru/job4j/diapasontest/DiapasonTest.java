@@ -1,4 +1,4 @@
-package test.java.ru.job4j.diapasontest;
+package ru.job4j.diapasontest;
 
 
 import org.junit.Test;

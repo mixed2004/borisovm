@@ -5,4 +5,4 @@
  * @version 1
  * @since 17.01.2019
  */
-package test.java.ru.job4j.diapasontest;
+package ru.job4j.diapasontest;

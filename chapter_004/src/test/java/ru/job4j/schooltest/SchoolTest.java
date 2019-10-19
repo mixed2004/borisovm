@@ -1,4 +1,4 @@
-package test.java.ru.job4j.schooltest;
+package ru.job4j.schooltest;
 
 import org.junit.Test;
 import ru.job4j.school.School;

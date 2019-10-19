@@ -5,4 +5,4 @@
  * @version 1
  * @since 14.03.2019
  */
-package test.java.ru.job4j.schooltest;
+package ru.job4j.schooltest;

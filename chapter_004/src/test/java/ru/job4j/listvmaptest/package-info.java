@@ -5,4 +5,4 @@
  * @version 1
  * @since 30.06.2019
  */
-package test.java.ru.job4j.listvmaptest;
+package ru.job4j.listvmaptest;

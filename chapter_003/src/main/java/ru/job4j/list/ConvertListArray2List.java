@@ -1,6 +1,8 @@
 package ru.job4j.list;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * class ConvertListArray2List.
  *
@@ -15,12 +17,17 @@ public class ConvertListArray2List {
      * @return resultList
      */
     public List<Integer> convert(List<int[]> list) {
-        List<Integer> resultList = new ArrayList<>();
+ /*       List<Integer> resultList = new ArrayList<>();
         for (int[] listsArray: list) {
             for (int volume: listsArray) {
                 resultList.add(volume);
             }
         }
+ */
+        List<Integer> resultList = list.stream()
+                .flatMapToInt(Arrays::stream)
+                .boxed().collect(Collectors.<Integer>toList());
+
         return resultList;
     }
 }
